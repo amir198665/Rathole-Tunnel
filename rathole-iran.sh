@@ -159,14 +159,16 @@ download_and_extract_rathole() {
         exit 1
     fi
 
-    local url="$DOWNLOAD_URL"
-    local dest="${config_dir}/rathole"
     echo -e "${YELLOW}Downloading Rathole binary from BayanBox...${NC}"
     mkdir -p "$config_dir"
-    wget -q -O "$dest" "$url"
-    chmod +x "$dest"
-    
-    echo -e "${GREEN}Rathole installation completed.${NC}\n"
+    if wget -q -O "${config_dir}/rathole" "$DOWNLOAD_URL"; then
+        chmod +x "${config_dir}/rathole"
+        echo -e "${GREEN}Rathole installation completed.${NC}\n"
+    else
+        echo -e "${RED}Failed to download Rathole.${NC}"
+        sleep 1
+        exit 1
+    fi
 }
 
 #Download and extract the Rathole core
@@ -1558,6 +1560,7 @@ read -p "Press Enter to continue..."
 install_modified_core(){
 	echo
 	DOWNLOAD_URL='https://bayanbox.ir/download/4382224568764915632/rathole-modified'
+	UBUNTU22_URL='https://bayanbox.ir/download/7560680525894667114/rathole-modified'
 	
 	if [ -z "$DOWNLOAD_URL" ]; then
         echo -e "${RED}Failed to retrieve download URL.${NC}"
@@ -1566,14 +1569,24 @@ install_modified_core(){
     fi
     
     DOWNLOAD_DIR=$(mktemp -d)
-    echo -e "Downloading modifed rathole-core from $DOWNLOAD_URL...\n"
-    sleep 1
-    curl -sSL -o "$DOWNLOAD_DIR/rathole-modified" "$DOWNLOAD_URL"
-    echo -e "Moving modified rathole-core to $config_dir...\n"
-    sleep 1
-    mv -f "$DOWNLOAD_DIR/rathole-modified" "${config_dir}/rathole"
-    echo -e "${GREEN}Rathole installation completed.${NC}"
-    chmod u+x ${config_dir}/rathole
+    
+    # Check Ubuntu version
+    ubuntu_version=$(lsb_release -rs 2>/dev/null)
+    if [[ "$ubuntu_version" == "22.04" ]]; then
+        echo -e "Ubuntu 22.04 detected, downloading Ubuntu 22 specific version..."
+        wget -q -O "${config_dir}/rathole" "$UBUNTU22_URL"
+    else
+        echo -e "Downloading standard modified rathole-core..."
+        wget -q -O "${config_dir}/rathole" "$DOWNLOAD_URL"
+    fi
+    
+    if [ $? -eq 0 ]; then
+        chmod +x "${config_dir}/rathole"
+        echo -e "${GREEN}Rathole installation completed.${NC}"
+    else
+        echo -e "${RED}Failed to download modified rathole-core.${NC}"
+    fi
+    
     rm -rf "$DOWNLOAD_DIR"
     echo
 }
