@@ -1,3 +1,28 @@
+
+دوتا کد دستوری برای اجرای مستقیم از همین گیتهاب خودم
+
+
+Version 1: Run the following script on your server (Debian or Ubuntu):
+
+```
+bash <(curl -Ls --ipv4 https://raw.githubusercontent.com/amir198665/Rathole-Tunnel/main/rathole.sh)
+```
+
+Version 2 : Not compatible with the previous version / suggested / multi-service and multi-server capability
+```
+bash <(curl -Ls --ipv4 https://raw.githubusercontent.com/amir198665/Rathole-Tunnel/main/rathole_v2.sh)
+`
+یا اگه ارور داد 
+VERjen1
+```
+wget -O rathole.sh https://raw.githubusercontent.com/amir198665/Rathole-Tunnel/main/rathole.sh && sed -i 's/\r$//' rathole.sh && bash rathole.sh
+```
+vergen2
+```
+wget -O rathole_v2.sh https://raw.githubusercontent.com/amir198665/Rathole-Tunnel/main/rathole_v2.sh && sed -i 's/\r$//' rathole_v2.sh && bash rathole_v2.sh
+```
+
+
 [Persian Readme](https://github.com/Musixal/Rathole-Tunnel/blob/main/README_FA.md)
 
 # What is Rathole?
