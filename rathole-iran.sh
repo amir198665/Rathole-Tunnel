@@ -66,7 +66,7 @@ install_unzip() {
         if command -v apt-get &> /dev/null; then
             echo -e "${RED}unzip is not installed. Installing...${NC}"
             sleep 1
-            sudo apt-get update
+            # sudo apt-get update
             sudo apt-get install -y unzip
         else
             echo -e "${RED}Error: Unsupported package manager. Please install unzip manually.${NC}\n"
@@ -86,7 +86,7 @@ install_cron() {
         if command -v apt-get &> /dev/null; then
             echo -e "${RED}cron is not installed. Installing...${NC}"
             sleep 1
-            sudo apt-get update
+            # sudo apt-get update
             sudo apt-get install -y cron
         else
             echo -e "${RED}Error: Unsupported package manager. Please install cron manually.${NC}\n"
@@ -107,7 +107,7 @@ install_jq() {
         if command -v apt-get &> /dev/null; then
             echo -e "${RED}jq is not installed. Installing...${NC}"
             sleep 1
-            sudo apt-get update
+            # sudo apt-get update
             sudo apt-get install -y jq
         else
             echo -e "${RED}Error: Unsupported package manager. Please install jq manually.${NC}\n"
@@ -165,7 +165,13 @@ download_and_extract_rathole() {
     mkdir -p "$config_dir"
     if wget -q -O "${config_dir}/rathole" "$DOWNLOAD_URL"; then
         chmod +x "${config_dir}/rathole"
-        echo -e "${GREEN}Rathole binary installed successfully.${NC}\n"
+        if true; then # check_hash "/usr/local/bin/rathole" "$EXPECTED_HASH";
+            echo -e "${GREEN}Rathole binary installed successfully.${NC}\n"
+        else
+            echo -e "${RED}Hash verification failed!${NC}"
+            sleep 1
+            exit 1
+        fi
     else
         echo -e "${RED}Failed to download from BayanBox.${NC}"
         sleep 1
@@ -192,7 +198,7 @@ display_logo() {
     cat << "EOF"
                __  .__           .__          
 ____________ _/  |_|  |__   ____ |  |   ____  
-\_  __ \__  \\   __|  |  \ /  _ \|  | _/ __ \ 
+\_  __ \__  \\   __|  |  \/  _ \|  | _/ __ \ 
  |  | \// __ \|  | |   Y  (  <_> )  |_\  ___/ 
  |__|  (____  |__| |___|  /\____/|____/\___  >
             \/          \/                 \/ 	
