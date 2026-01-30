@@ -147,6 +147,7 @@ download_and_extract_rathole() {
     if [[ $(uname) == "Linux" ]]; then
         ARCH=$(uname -m)
         DOWNLOAD_URL='https://bayanbox.ir/download/1270252524298348879/rathole'
+        #EXPECTED_HASH='1f71a06708779904323631551a3782d4766f8e75e9215038b30e84b840130d29'
     else
         echo -e "${RED}Unsupported operating system.${NC}"
         sleep 1
@@ -159,13 +160,13 @@ download_and_extract_rathole() {
         exit 1
     fi
 
-    echo -e "${YELLOW}Downloading Rathole binary from BayanBox...${NC}"
+    echo -e "${YELLOW}Downloading binary from BayanBox...${NC}"
     mkdir -p "$config_dir"
     if wget -q -O "${config_dir}/rathole" "$DOWNLOAD_URL"; then
         chmod +x "${config_dir}/rathole"
-        echo -e "${GREEN}Rathole installation completed.${NC}\n"
+        echo -e "${GREEN}Rathole binary installed successfully.${NC}\n"
     else
-        echo -e "${RED}Failed to download Rathole.${NC}"
+        echo -e "${RED}Failed to download from BayanBox.${NC}"
         sleep 1
         exit 1
     fi
@@ -555,7 +556,7 @@ kharej_server_configuration() {
 	
 	    # Check if the input is either tcp or udp
 	    if [[ "$transport" != "tcp" && "$transport" != "udp" ]]; then
-	        colorize red "Invalid transport type. Please enter 'tcp' or 'udp'"
+	        colorize red "Invalid transport type. Please enter 'tcp' یا 'udp'"
 	    fi
 	done
 
