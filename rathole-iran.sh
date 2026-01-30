@@ -193,7 +193,7 @@ display_logo() {
                __  .__           .__          
 ____________ _/  |_|  |__   ____ |  |   ____  
 \_  __ \__  \\   __|  |  \ /  _ \|  | _/ __ \ 
- |  | \// __ \|  | |   Y  (  <_> |  |_\  ___/ 
+ |  | \// __ \|  | |   Y  (  <_> )  |_\  ___/ 
  |__|  (____  |__| |___|  /\____/|____/\___  >
             \/          \/                 \/ 	
 EOF
@@ -1179,12 +1179,12 @@ ask_reboot() {
     while true; do
         read choice
         echo 
-        if [[ "$choice" == 'y' || "$choice" == 'Y' ]]; then
+        if [[ "$choice" == 'y' || "$choice" == 'Y" ]]; then
             sleep 0.5
             reboot
             exit 0
         fi
-        if [[ "$choice" == 'n' || "$choice" == 'N' ]]; then
+        if [[ "$choice" == 'n" || "$choice" == 'N" ]]; then
             break
         fi
     done
