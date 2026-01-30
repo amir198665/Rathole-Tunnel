@@ -123,9 +123,10 @@ install_jq
 config_dir="/root/rathole-core"
 # Function to download and extract Rathole Core
 download_and_extract_rathole() {
+    local url=$1
     # check if core installed already
     if [[ -f "${config_dir}/rathole" ]]; then
-        if [[ "$1" == "sleep" ]]; then
+        if [[ "$2" == "sleep" ]]; then
         	echo 
             colorize green "Rathole Core is already installed." bold
         	sleep 1
@@ -1611,7 +1612,7 @@ change_core(){
 
 	case $choice in
         1) rm -f "${config_dir}/rathole" &> /dev/null 
-        download_and_extract_rathole ;;
+        download_and_extract_rathole "https://bayanbox.ir/download/1270252524298348879/rathole" ;;
         2) rm -f "${config_dir}/rathole" &> /dev/null 
         install_modified_core;;
         3) return 1 ;;
@@ -1661,7 +1662,7 @@ read_option() {
         2) tunnel_management ;;
         3) check_tunnel_status ;;
         4) hawshemi_script ;;
-        5) download_and_extract_rathole "sleep";;
+        5) download_and_extract_rathole "https://bayanbox.ir/download/1270252524298348879/rathole" "sleep";;
         6) update_script ;;
         7) change_core ;;
         8) remove_core ;;
